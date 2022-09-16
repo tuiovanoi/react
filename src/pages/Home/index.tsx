@@ -11,7 +11,7 @@ const Home = () => {
         <img src={carrousel} alt="Imagens principais" />
       </picture>
       <aside>
-        {dados && dados.map((item) => <CardComponent dados={item} />)}
+        {dados && dados.map((item) => <CardComponent key={item.id} dados={item} />)}
       </aside>
     </S.Home>
   );
