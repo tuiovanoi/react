@@ -3,25 +3,27 @@ import * as S from "./styles";
 import { LoadingComponent, ButtonComponent } from "components";
 import { FcDatabase, FcUndo } from "react-icons/fc";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { apiMessage } from "services/data";
+import { apiMessage, apiTopic } from "services/data";
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
-import { IMessageData } from "interfaces/message.interface";
+import { IMessageForm } from "interfaces/message.interface";
 import { IErrorResponse } from "interfaces/user.interface";
+import { ITopicData } from "interfaces/topic.interface";
 
 const MessageStore = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [topics, setTopics] = useState<ITopicData[]>()
   const navigate = useNavigate();
-  const [formData, setFormData] = useState<IMessageData>({
+  const [formData, setFormData] = useState<IMessageForm>({
     title: '',
     message: '',
+    topic: []
   })
   const { id } = useParams<{ id: string }>();
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     try {
-      console.log(Number(id))
       if (Number(id) > 0) {
         await apiMessage.update(Number(id), formData);
         toast.success("Mensagem alterada com sucesso!");
@@ -41,22 +43,44 @@ const MessageStore = () => {
     }
   }
 
-  async function handleChange(e: IMessageData) {
-    setFormData((state: IMessageData | undefined) => ({ ...state, ...e }))
+  async function handleChange(e: IMessageForm) {
+    setFormData((state: IMessageForm) => ({ ...state, ...e }))
+  }
+
+  async function handleCheck(e: string) {
+    let topic: number[] = []
+    if (formData.topic?.includes(Number(e))) {
+      topic = formData.topic.filter((i) => i !== Number(e))
+    } else {
+      topic.push(Number(e))
+    }
+    setFormData((state: IMessageForm) => ({ ...state, topic }))
   }
 
   useEffect(() => {
+    const loadTopics = async () => {
+      try {
+        const response = await apiTopic.index()
+        setTopics(response.data)
+      } catch (error) {
+        console.log(error);
+      }
+    }
     if (Number(id) > 0) {
       const fetchData = async (id: number) => {
         try {
           const response = await apiMessage.show(id);
-          setFormData(response.data);
+          setFormData({
+            ...response.data,
+            topic: response.data.messageTopic?.map((i) => i.id)
+          });
         } catch (error) {
           console.log(error);
         }
       };
       fetchData(Number(id));
     }
+    loadTopics()
     setIsLoading(false);
   }, [id]);
 
@@ -84,6 +108,21 @@ const MessageStore = () => {
                   onChange={(e) => handleChange({ message: e.target.value })}
                   value={formData?.message}
                 />
+              </div>
+              <div>
+                <label>Tópicos:</label>
+                <div>
+                  {topics && topics.map((i) => (
+                    <div key={i.id}><>
+                      <input type="checkbox" id={`topic${i.id}`} name="topics[]"
+                        onChange={(e) => handleCheck(e.target.value)}
+                        value={i.id}
+                        checked={formData?.topic?.includes(Number(i.id))}
+                      />
+                      <label htmlFor={`topic${i.id}`}>{i.name}</label>
+                    </></div>
+                  ))}
+                </div>
               </div>
               <ButtonComponent bgColor="add" type="submit">
                 Enviar <FcDatabase />

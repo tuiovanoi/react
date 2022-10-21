@@ -1,6 +1,6 @@
 import React from "react";
 import { ICard } from "interfaces/card.interface";
-
+import { format, parseISO } from "date-fns";
 import * as S from "./styles";
 
 const Card = ({ dados }: ICard) => {
@@ -10,14 +10,17 @@ const Card = ({ dados }: ICard) => {
         <div key={dados.id}>
           <h4>
             <>
-              {dados.nome} - {dados.data}
+              {dados.user?.name} - {dados.created_at && format(
+                parseISO(dados.created_at),
+                "dd/MM/yyyy HH:mm:ss"
+              )}
             </>
           </h4>
-          <h3>Título: {dados.titulo}</h3>
-          <h3>Mensagem: {dados.mensagem}</h3>
+          <h3>Título: {dados.title}</h3>
+          <h3>Mensagem: {dados.message}</h3>
           <div>
-            {dados.topico.map((topic) => (
-              <span key={topic.id}>{topic.item}</span>
+            {dados.messageTopic?.map((topic) => (
+              <span key={topic.id}>{topic.name}</span>
             ))}
           </div>
         </div>

@@ -27,6 +27,9 @@ export const Main = styled.main`
         padding: 0.4rem;
         border-radius: 0.5rem;
       }
+      div {
+        display: flex;
+      }
     }
   }
 `
