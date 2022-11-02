@@ -72,6 +72,7 @@ const AdmMessage = () => {
                   <th>Nome</th>
                   <th>Título</th>
                   <th>Mensagem</th>
+                  <th>Tópico</th>
                   <th>Editar</th>
                   <th>Remover</th>
                 </tr>
@@ -83,6 +84,7 @@ const AdmMessage = () => {
                       <td>{item.user?.name}</td>
                       <td>{item.title}</td>
                       <td>{item.message}</td>
+                      <td>{item.messageTopic?.map((i) => `${i.name} `)}</td>
                       <td>
                         <ButtonComponent
                           type="button"

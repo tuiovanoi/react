@@ -48,7 +48,7 @@ const MessageStore = () => {
   }
 
   async function handleCheck(e: string) {
-    let topic: number[] = []
+    let topic = formData.topic ? formData.topic : []
     if (formData.topic?.includes(Number(e))) {
       topic = formData.topic.filter((i) => i !== Number(e))
     } else {
