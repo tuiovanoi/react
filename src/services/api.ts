@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: 'https://projectadonis.herokuapp.com',
+  baseURL: 'https://metallicaweb.herokuapp.com/',
   headers: {
     'Content-Type': 'application/json',
   },
