@@ -4,7 +4,7 @@ import * as S from "./styles";
 import { apiMessage } from "services/data";
 import { IMessageData } from "interfaces/message.interface";
 import { LoadingComponent } from "components";
-import { FcAddDatabase } from "react-icons/fc";
+import { FcAddRow } from "react-icons/fc";
 import { BsPencilSquare, BsTrash2 } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert";
@@ -63,7 +63,7 @@ const AdmMessage = () => {
                 type="button"
                 onClick={() => navigate("/adm/message/0")}
               >
-                <FcAddDatabase />
+                <FcAddRow />
               </ButtonComponent>
             </div>
             <table>

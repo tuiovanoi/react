@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useState } from "react";
 import * as S from "./styles";
 import { LoadingComponent, ButtonComponent } from "components";
-import { FcDatabase, FcUndo } from "react-icons/fc";
+import { FcAddImage, FcDataBackup } from "react-icons/fc";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { apiMessage, apiTopic } from "services/data";
 import { toast } from "react-toastify";
@@ -93,7 +93,7 @@ const MessageStore = () => {
           <S.Main>
             <form method="POST" onSubmit={handleSubmit}>
               <Link to="/adm/message">
-                <FcUndo /> Voltar
+                < FcDataBackup /> Voltar
               </Link>
               <div>
                 <label htmlFor="title">Título: </label>
@@ -125,7 +125,7 @@ const MessageStore = () => {
                 </div>
               </div>
               <ButtonComponent bgColor="add" type="submit">
-                Enviar <FcDatabase />
+                Enviar < FcAddImage />
               </ButtonComponent>
             </form>
           </S.Main>

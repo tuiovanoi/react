@@ -6,13 +6,13 @@ export const Main = styled.main`
     margin: 1rem 0;
     padding: 0.4rem;
     a {
-      background-color: ${colors.primary};
+      background-color: ${colors.secondary};
       border-radius: 0.3rem;
       color: ${colors.white};
       font-weight: bold;
       text-decoration: none;
       padding: 0.5rem;
-      outline: 0.2rem outset ${colors.primary};
+      outline: 0.2rem outset ${colors.secondary};
     }
     div {
       margin: 1rem 0;

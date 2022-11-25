@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import carrousel from "assets/img/carrousel.png";
+import metalica from "assets/img/metalica.jpeg";
 import * as S from "./styles";
 import { CardComponent } from "components";
 import { apiMessage } from "services/data";
@@ -18,7 +18,7 @@ const Home = () => {
   return (
     <S.Home>
       <picture>
-        <img src={carrousel} alt="Imagens principais" />
+        <img src={metalica} alt="Imagens principais" />
       </picture>
       <aside>
         {messages && messages.map((item) => <CardComponent key={item.id} dados={item} />)}
